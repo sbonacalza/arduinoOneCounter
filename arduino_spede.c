@@ -321,7 +321,7 @@ void keepScore(int score) {
     digitalWrite(8, LOW);
     digitalWrite(7, LOW);
   }
-  if (score == 0) {
+  if (score == 3) {
     digitalWrite(10, LOW);
     digitalWrite(9, LOW);
     digitalWrite(8, LOW);
