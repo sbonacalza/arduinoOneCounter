@@ -67,6 +67,7 @@ enum {
 };
 
 int score = 0;
+int score2 = 0;
 int led = 0;
 int prevLed = 0;
 int nextTimer = 0;
@@ -75,7 +76,7 @@ int hiscore = 0;
 int startMenuTimer = 0;
 int prevButtonState[] = { HIGH, HIGH, HIGH, HIGH };
 int state = STATE_START_MENU;
-
+int count = 0;
 // Read hiscore value from EEPROM
 void readHiscore() {
   hiscore = (EEPROM.read(0) << 8) + EEPROM.read(1);
@@ -95,6 +96,13 @@ void setup() {
   pinMode(latchPin, OUTPUT);
   pinMode(clockPin, OUTPUT);
   pinMode(dataPin, OUTPUT);
+
+  digitalWrite(11, HIGH);
+  digitalWrite(10, LOW);
+  digitalWrite(9, LOW);
+  digitalWrite(8, LOW);
+  digitalWrite(7, LOW);
+  
   
   for(int i = 0; i < 4; i++)
     pinMode(enableDigits[i], OUTPUT);
@@ -212,7 +220,7 @@ void playGame() {
   if(nextTimer < 0) {
     // game over if player is too slow
     if(led >= 0) {
-      gameOver(score);
+      gameOver(score2);
       return;
     }
 
@@ -243,12 +251,13 @@ void playGame() {
       if( led >= 0 ) { //&& millis() - lastButtonPress > 50 ) { 
         // correct button pressed?
         if( i == led ) {
-          score++;
-          keepScore(score);          
+          score2++;
+          keepScore(score2);          
           led = -1;  // turn off led
         } else {
-          score--;          
-          gameOver(score);
+          if (score2 > 0)
+          score2--;          
+          gameOver(score2);
         }
         //lastButtonPress = millis();
         noTone(tonePin);
@@ -259,7 +268,7 @@ void playGame() {
 }
 
 // Game over. Play a game over sound and blink score.
-void gameOver(int score) {
+void gameOver(int score2) {
   tone(tonePin, 250, 2500);
 
   // new hiscore?
@@ -287,7 +296,8 @@ void gameOver(int score) {
   
   // enter menu
   //delay(1000);
-   keepScore(score);
+   if (score2 >= 0)
+   keepScore(score2);
   state = STATE_START_MENU;
   startMenuTimer = 0;
 }
@@ -299,29 +309,53 @@ void loop() {
   else if(state == STATE_GAME)
     playGame();
   else
-    gameOver(score);
+    gameOver(score2);
 }
 
-void keepScore(int score) {
-  if (score == 0) {
+void keepScore(int score2) {
+  count ++;
+  if (score2 == 0) {
+    digitalWrite(11, LOW);
     digitalWrite(10, LOW);
     digitalWrite(9, LOW);
     digitalWrite(8, LOW);
     digitalWrite(7, LOW);
+    digitalWrite(2, LOW);
+    digitalWrite(11, LOW);
+    digitalWrite(12, LOW);
+    digitalWrite(13, LOW);
   }
-  if (score == 1) {
+  if (score2 == 1) {
     digitalWrite(10, HIGH);
     digitalWrite(9, LOW);
     digitalWrite(8, LOW);
     digitalWrite(7, LOW);
+    digitalWrite(2, LOW);
+    digitalWrite(11, LOW);
+    digitalWrite(12, LOW);
+    digitalWrite(13, LOW);
   }
-  if (score == 2) {
+  if (score2 == 2) {
     digitalWrite(10, LOW);
     digitalWrite(9, HIGH);
     digitalWrite(8, LOW);
     digitalWrite(7, LOW);
+    digitalWrite(2, LOW);
+    digitalWrite(11, LOW);
+    digitalWrite(12, LOW);
+    digitalWrite(13, LOW);
   }
-  if (score == 3) {
+  if (score2 == 3) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+    digitalWrite(2, LOW);
+    digitalWrite(11, LOW);
+    digitalWrite(12, LOW);
+    digitalWrite(13, LOW);
+  }
+  /*if (score == 0) {
     digitalWrite(10, LOW);
     digitalWrite(9, LOW);
     digitalWrite(8, LOW);
@@ -488,11 +522,5 @@ void keepScore(int score) {
     digitalWrite(9, LOW);
     digitalWrite(8, LOW);
     digitalWrite(7, LOW);
-  }
-  if (score == 0) {
-    digitalWrite(10, LOW);
-    digitalWrite(9, LOW);
-    digitalWrite(8, LOW);
-    digitalWrite(7, LOW);
-  }
+  }*/
 }
