@@ -78,6 +78,7 @@ int prevButtonState[] = { HIGH, HIGH, HIGH, HIGH };
 int state = STATE_START_MENU;
 int count = 0;
 boolean pasoInter = false;
+
 // Read hiscore value from EEPROM
 void readHiscore() {
   hiscore = (EEPROM.read(0) << 8) + EEPROM.read(1);
@@ -253,12 +254,8 @@ void playGame() {
         // correct button pressed?
         if( i == led ) {
           score2++;
-          if (score2 == 31) {
-            gameOver(score2);
-          } else {
-            keepScore(score2);          
-            led = -1;  // turn off led
-          }
+          keepScore(score2);          
+          led = -1;  // turn off led
         } else {
           if (score2 > 0)
           score2--;          
@@ -337,89 +334,16 @@ void keepScore(int score2) {
     digitalWrite(7, LOW);
   }
   if (score2 == 3) {
-    digitalWrite(10, HIGH);
-    digitalWrite(9, HIGH);
-    digitalWrite(8, LOW);
-    digitalWrite(7, LOW);
-  }
-  if (score2 == 4) {
-    digitalWrite(10, LOW);
-    digitalWrite(9, LOW);
-    digitalWrite(8, HIGH);
-    digitalWrite(7, LOW);
-  }  
-  if (score2 == 5) {
-    digitalWrite(10, HIGH);
-    digitalWrite(9, LOW);
-    digitalWrite(8, HIGH);
-    digitalWrite(7, LOW);
-  }
-  if (score2 == 6) {
-    digitalWrite(10, LOW);
-    digitalWrite(9, HIGH);
-    digitalWrite(8, HIGH);
-    digitalWrite(7, LOW);
-  }
-  if (score2 == 7) {
-    digitalWrite(10, HIGH);
-    digitalWrite(9, HIGH);
-    digitalWrite(8, HIGH);
-    digitalWrite(7, LOW);
-  }
-  if (score2 == 8) {
-    digitalWrite(10, LOW);
-    digitalWrite(9, LOW);
-    digitalWrite(8, LOW);
-    digitalWrite(7, HIGH);
-  }
-  if (score2 == 9) {
-    digitalWrite(10, HIGH);
-    digitalWrite(9, LOW);
-    digitalWrite(8, LOW);
-    digitalWrite(7, HIGH);
-  }
-  if (score2 == 10) {
-    digitalWrite(10, LOW);
-    digitalWrite(9, HIGH);
-    digitalWrite(8, LOW);
-    digitalWrite(7, HIGH);
-  }
-  if (score2 == 11) {
-    digitalWrite(10, HIGH);
-    digitalWrite(9, HIGH);
-    digitalWrite(8, LOW);
-    digitalWrite(7, HIGH);
-  }
-  if (score2 == 12) {
-    digitalWrite(10, LOW);
-    digitalWrite(9, LOW);
-    digitalWrite(8, HIGH);
-    digitalWrite(7, HIGH);
-  }
-  if (score2 == 13) {
-    digitalWrite(10, HIGH);
-    digitalWrite(9, LOW);
-    digitalWrite(8, HIGH);
-    digitalWrite(7, HIGH);
-  }
-  if (score2 == 14) {
-    pasoInter = false;
-    digitalWrite(10, LOW);
-    digitalWrite(9, HIGH);
-    digitalWrite(8, HIGH);
-    digitalWrite(7, HIGH);
-  }
-  if (score2 == 15) {
     if (pasoInter == true) {
       digitalWrite(1, HIGH);
       digitalWrite(0, LOW);
     }
     digitalWrite(10, HIGH);
     digitalWrite(9, HIGH);
-    digitalWrite(8, HIGH);
-    digitalWrite(7, HIGH);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
   }
-  if (score2 == 16) {
+  if (score2 == 4) {
     pasoInter = true;
     digitalWrite(0, HIGH);
     digitalWrite(1, LOW);
@@ -428,94 +352,166 @@ void keepScore(int score2) {
     digitalWrite(12, LOW);
     digitalWrite(13, LOW);
   }
-  if (score2 == 17) {
+  if (score2 == 5) {
     digitalWrite(2, HIGH);
     digitalWrite(11, LOW);
     digitalWrite(12, LOW);
     digitalWrite(13, LOW);
   }
-  if (score2 == 18) {
-    digitalWrite(2, LOW);
-    digitalWrite(11, HIGH);
-    digitalWrite(12, LOW);
-    digitalWrite(13, LOW);
-  }
-  if (score2 == 19) {
+  if (score2 == 6) {
     digitalWrite(2, HIGH);
     digitalWrite(11, HIGH);
     digitalWrite(12, LOW);
     digitalWrite(13, LOW);
   }
-  if (score2 == 20) {
-    digitalWrite(2, LOW);
-    digitalWrite(11, LOW);
-    digitalWrite(12, HIGH);
-    digitalWrite(13, LOW);
+  /*if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
   }
-  if (score2 == 21) {
-    digitalWrite(2, HIGH);
-    digitalWrite(11, LOW);
-    digitalWrite(12, HIGH);
-    digitalWrite(13, LOW);
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
   }
-  if (score2 == 22) {
-    digitalWrite(2, LOW);
-    digitalWrite(11, HIGH);
-    digitalWrite(12, HIGH);
-    digitalWrite(13, LOW);
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
   }
-  if (score2 == 23) {
-    digitalWrite(2, HIGH);
-    digitalWrite(11, HIGH);
-    digitalWrite(12, HIGH);
-    digitalWrite(13, LOW);
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
   }
-  if (score2 == 24) {
-    digitalWrite(2, LOW);
-    digitalWrite(11, LOW);
-    digitalWrite(12, LOW);
-    digitalWrite(13, HIGH);
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
   }
-  if (score2 == 25) {
-    digitalWrite(2, HIGH);
-    digitalWrite(11, LOW);
-    digitalWrite(12, LOW);
-    digitalWrite(13, HIGH);
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
   }
-  if (score2 == 26) {
-    digitalWrite(2, LOW);
-    digitalWrite(11, HIGH);
-    digitalWrite(12, LOW);
-    digitalWrite(13, HIGH);
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
   }
-  if (score2 == 27) {
-    digitalWrite(2, HIGH);
-    digitalWrite(11, HIGH);
-    digitalWrite(12, LOW);
-    digitalWrite(13, HIGH);
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
   }
-  if (score2 == 28) {
-    digitalWrite(2, LOW);
-    digitalWrite(11, LOW);
-    digitalWrite(12, HIGH);
-    digitalWrite(13, HIGH);
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
   }
-  if (score2 == 29) {
-    digitalWrite(2, HIGH);
-    digitalWrite(11, LOW);
-    digitalWrite(12, HIGH);
-    digitalWrite(13, HIGH);
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
   }
-  if (score2 == 30) {
-    digitalWrite(2, LOW);
-    digitalWrite(11, HIGH);
-    digitalWrite(12, HIGH);
-    digitalWrite(13, HIGH);
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
   }
-  if (score2 == 31) {
-    digitalWrite(2, HIGH);
-    digitalWrite(11, HIGH);
-    digitalWrite(12, HIGH);
-    digitalWrite(13, HIGH);
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
   }
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }
+  if (score == 0) {
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }*/
 }
